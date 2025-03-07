@@ -9,7 +9,6 @@ CREATE TABLE e_client(
     ClientType ENUM('PJ', 'PF') NOT NULL,
     Address VARCHAR(45)
 );
-ALTER TABLE e_client AUTO_INCREMENT = 1;
 
 -- criar tabela cliente PJ
 CREATE TABLE clientPJ(
@@ -22,7 +21,6 @@ CREATE TABLE clientPJ(
     CONSTRAINT pk_clientpj PRIMARY KEY (idClientPJ, idClient),
     CONSTRAINT fk_clientpj FOREIGN KEY (idClient) REFERENCES e_client(idClient)
 );
-ALTER TABLE clientPJ AUTO_INCREMENT = 1;
 
 -- criar tabela cliente PF
 CREATE TABLE clientPF(
@@ -35,19 +33,16 @@ CREATE TABLE clientPF(
     CONSTRAINT pk_clientpf PRIMARY KEY (idClientPF, idClient),
     CONSTRAINT fk_clientpf FOREIGN KEY (idClient) REFERENCES e_client(idClient)
 );
-ALTER TABLE clientPF AUTO_INCREMENT = 1;
 
 -- criar tabela produto
 CREATE TABLE product(
 	idProduct INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     Pdesc VARCHAR(45),
     Category ENUM('Eletrônico', 'Vestimenta', 'Brinquedos', 'Alimentos') NOT NULL,
-    VALOR FLOAT NOT NULL,
+    Price FLOAT NOT NULL,
     Rating FLOAT,
     Size VARCHAR(10)
 );
-ALTER TABLE product RENAME COLUMN VALOR TO Price;
-ALTER TABLE product AUTO_INCREMENT = 1;
 
 -- criar tabela pedido
 CREATE TABLE e_order(
@@ -58,18 +53,15 @@ CREATE TABLE e_order(
     SendValue FLOAT DEFAULT 10,
     CONSTRAINT fk_order_client FOREIGN KEY (idOrderClient) REFERENCES e_client(idClient) 
 );
-ALTER TABLE e_order AUTO_INCREMENT = 1;
 
 -- criar tabela pagamento
 CREATE TABLE payment(
 	idPayment INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     idOrder INT UNSIGNED,
     PaymentType ENUM('Boleto', 'Cartão'),
-    PaymentStatus ENUM('Em espera', 'Efetuado', 'Em atraso'),
+    PaymentStatus ENUM('Em espera', 'Efetuado', 'Em atraso', 'Cancelado'),
     CONSTRAINT fk_payment_order FOREIGN KEY (idOrder) REFERENCES e_order(idOrder)
 );
-ALTER TABLE payment AUTO_INCREMENT = 1;
-ALTER TABLE payment MODIFY COLUMN PaymentStatus ENUM('Em espera', 'Efetuado', 'Em atraso', 'Cancelado');
 
 CREATE TABLE delivery(
 	idDelivery INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -79,15 +71,12 @@ CREATE TABLE delivery(
     CONSTRAINT fk_idOrder_delivery FOREIGN KEY (idOrder) REFERENCES e_order(idOrder),
 	CONSTRAINT unique_trackingNumber UNIQUE (trackingNumber)
 );
-ALTER TABLE delivery AUTO_INCREMENT = 1;
 
 -- criar tabela estoque
 CREATE TABLE e_Storage(
 	idStorage INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	address VARCHAR(45)
+	address VARCHAR(100)
 );
-ALTER TABLE e_storage MODIFY COLUMN address VARCHAR(100);
-ALTER TABLE e_Storage AUTO_INCREMENT = 1;
 
 -- tabela estoque/produto
 CREATE TABLE productStorage(
@@ -104,12 +93,10 @@ CREATE TABLE supplier(
 	idSupplier INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     BusinessName VARCHAR(100) NOT NULL,
     CNPJ CHAR(14) NOT NULL,
-    concact CHAR(11) NOT NULL,
+    contact CHAR(11) NOT NULL,
     CONSTRAINT unique_cnpj_supplier UNIQUE (CNPJ),
     CONSTRAINT unique_businessname_supplier UNIQUE (BusinessName)
 );
-ALTER TABLE supplier AUTO_INCREMENT = 1;
-ALTER TABLE supplier RENAME COLUMN concact TO contact;
 
 -- tabela vendedor
 CREATE TABLE seller(
@@ -121,7 +108,6 @@ CREATE TABLE seller(
     CONSTRAINT unique_businessname_seller UNIQUE (BusinessName),
     CONSTRAINT unique_cnpj_seller UNIQUE (CNPJ)
 );
-ALTER TABLE seller AUTO_INCREMENT = 1;
 
 -- tabela vendido por
 CREATE TABLE productSeller(
