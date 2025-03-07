@@ -1,10 +1,6 @@
 -- consultas e-commerce
 USE ecommerce;
 
-SHOW TABLES;
-DESC e_client;
-DESC e_order;
-
 -- consultando dados de todos os clientes
 SELECT * FROM e_client;
 
@@ -87,7 +83,6 @@ SELECT o.OrderDescription, sum(po.Quantity * p.Price) + o.SendValue AS Total
     ORDER BY Total DESC;
 
 -- dados sobre o fornecimento e estoque de cada produto
-DESC SUPPLIER;
 SELECT Pdesc AS Product_desc, Category, BusinessName AS Supplier, supply.Quantity Supply_qtt, e_storage.Address Address_storage, productStorage.Quantity Storage_qtt
 	FROM product 
     INNER JOIN productstorage USING(idProduct)
