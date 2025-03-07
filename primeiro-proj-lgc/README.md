@@ -9,9 +9,9 @@ Projeto desenvolvido para modelar um sistema de e-commerce com funcionalidades c
 
 1. **`EER_Diagram`**: Esquema conceitual do banco de dados no formato EER (MySQL Workbench).  
 2. **`SQL_Scripts`**:
-   - `01_database_creation.sql`: Script para criação do banco de dados e tabelas.
-   - `02_data_insertion.sql`: Script para inserção de dados fictícios.
-   - `03_queries.sql`: Script com consultas SQL para análise de dados.
+   - `e-commerce-criacao.sql`: Script para criação do banco de dados e tabelas.
+   - `e-commerce-insercao.sql`: Script para inserção de dados fictícios.
+   - `e-commerce-consultas.sql`: Script com consultas SQL para análise de dados.
 3. **`README.md`**: Documentação do projeto (este arquivo).
 
 ---
